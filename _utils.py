@@ -72,6 +72,26 @@ def V_model_1bath(nu : float, a : float, delta : float, beta : float, kind : str
 
     return [g1, g2, g3], H, c_ops
 
+def V_model_1bath_uqme_transformed(nu : float, a : float, delta : float, beta : float):
+    """
+    Returns the V-model for the given parameters with an ohmic bath, transformed to the +/- basis
+    """
+    # Define the Hamiltonian
+    g1 = fock(3, 0)
+    g2 = fock(3, 1)
+    g3 = fock(3, 2)
+
+    # Define Hamiltonian
+    H = (nu - delta/2) * g2 * g2.dag() + (nu - delta/2) * g3 * g3.dag() + (delta/2) * (g2 * g3.dag() + g3 * g2.dag())
+
+    # Define collapse operators
+    c_ops = []
+    c_ops.append(np.sqrt(rates(a, nu, beta, kind='down')) * (g1*g2.dag()))
+    c_ops.append(np.sqrt(rates(a, nu, beta, kind='up')) * (g2*g1.dag()))
+
+    return [g1, g2, g3], H, c_ops
+
+
 def V_model_2bath(nu : float, a : float, delta : float, beta : list, alpha: float, kind : str = 'unified'):
     """
     Returns the V-model for the given parameters with an ohmic bath
