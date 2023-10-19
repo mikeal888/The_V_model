@@ -62,8 +62,8 @@ def V_model_1bath(nu : float, a : float, delta : float, beta : float, kind : str
     # Define collapse operators
     c_ops = []
     if kind == 'unified':
-        c_ops.append(np.sqrt(rates(a, nu, beta, kind='down')) * (g1*g2.dag() + g1*g3.dag()))
-        c_ops.append(np.sqrt(rates(a, nu, beta, kind='up')) * (g2 * g1.dag() + g3 * g1.dag()))
+        c_ops.append(np.sqrt(rates(a, nu, beta, kind='down'))/np.sqrt(2) * (g1*g2.dag() + g1*g3.dag()))
+        c_ops.append(np.sqrt(rates(a, nu, beta, kind='up'))/np.sqrt(2) * (g2 * g1.dag() + g3 * g1.dag()))
     elif kind == "secular":
         c_ops.append(np.sqrt(rates(a, nu, beta, kind='down')) * (g1*g2.dag()))
         c_ops.append(np.sqrt(rates(a, nu, beta, kind='down')) * (g1*g3.dag()))
@@ -87,10 +87,10 @@ def V_model_2bath(nu : float, a : float, delta : float, beta : list, alpha: floa
     # Define collapse operators
     c_ops = []
     if kind == 'unified':
-        c_ops.append(np.sqrt(rates(a, nu, beta[0], kind='down')) * (g1*g2.dag() + g1*g3.dag()))
-        c_ops.append(np.sqrt(rates(a, nu, beta[0], kind='up')) * (g2 * g1.dag() + g3 * g1.dag()))
-        c_ops.append(np.sqrt(rates(a, nu, beta[1], kind='down')) * (g1*g2.dag() + alpha*g1*g3.dag()))
-        c_ops.append(np.sqrt(rates(a, nu, beta[1], kind='up')) * (g2 * g1.dag() + alpha*g3 * g1.dag()))
+        c_ops.append(np.sqrt(rates(a, nu, beta[0], kind='down'))/np.sqrt(2) * (g1*g2.dag() + g1*g3.dag()))
+        c_ops.append(np.sqrt(rates(a, nu, beta[0], kind='up'))/np.sqrt(2) * (g2 * g1.dag() + g3 * g1.dag()))
+        c_ops.append(np.sqrt(rates(a, nu, beta[1], kind='down'))/np.sqrt(2) * (g1*g2.dag() + alpha*g1*g3.dag()))
+        c_ops.append(np.sqrt(rates(a, nu, beta[1], kind='up'))/np.sqrt(2) * (g2 * g1.dag() + alpha*g3 * g1.dag()))
     elif kind == "secular":
         c_ops.append(np.sqrt(rates(a, nu, beta[0], kind='down')) * (g1*g2.dag()))
         c_ops.append(np.sqrt(rates(a, nu, beta[0], kind='down')) * (g1*g3.dag()))
